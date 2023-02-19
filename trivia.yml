@@ -1,0 +1,97 @@
+openapi: 3.0.3
+info:
+  title: Swagger Trivia - OpenAPI 3.0
+  description: |-
+    Trivia es información y datos que se consideran de poco valor. 
+    Se puede contrastar con el conocimiento general y el sentido común. 
+    La palabra se deriva de la palabra latina triviae, que significa 
+    un lugar donde un camino se divide en dos.
+    Some useful links:
+    - [Trivia Repository](https://github.com/capgemini-salvgonz/aws-lambda-nodejs-trivia)
+    - [The trivia API definition for AWS lambda example](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: chava.gnolasco@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: trivia
+    description: Ejemplos de trivias matemáticas
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /:
+    get:
+      tags:
+        - trivia
+      summary: Trivia aleatoria
+      description: Retorna una trivia de manera aleatoria
+      operationId: getTrivia
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trivia'
+        '400':
+          description: Bad request
+    post:
+      tags:
+        - trivia 
+      summary: Valida respuesta
+      description: Valida la respuesta a una trivia
+      operationId: answerTrivia
+      parameters:
+        - name: qid
+          in: query
+          description: Identificador de trivia
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Respuesta a una trivia
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriviaResponse'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriviaAnswer'
+        '400':
+          description: Bad request
+components:
+  schemas:
+    Trivia:
+      type: object
+      properties:
+        questionId: 
+          type: string
+          example: "3fd372f0-1ea0-4598-83a1-8a32ec2c2139"
+        question: 
+          type: string
+          example: "¿Quién es el científico que nació el día de Pi?"
+    TriviaResponse:
+      type: object
+      properties:
+        answer: 
+          type: string
+          example: "Albert Einstein"
+    TriviaAnswer:
+      type: object
+      properties:
+        answer: 
+          type: string
+          example: "Correct"

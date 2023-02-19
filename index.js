@@ -1,4 +1,5 @@
-module.exports.handler = async (event) => {
+
+const getTrivia = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify(
@@ -11,3 +12,20 @@ module.exports.handler = async (event) => {
     ),
   };
 };
+
+const answerTrivia = async (event) => {
+  return {
+    statusCode: 200,
+    body: JSON.stringify(
+      {
+        message: "Go Serverless v3.0! Your function executed successfully!",
+        input: event,
+      },
+      null,
+      2
+    ),
+  };
+};
+
+module.exports.handler = { getTrivia, answerTrivia };
+
