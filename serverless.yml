@@ -1,14 +1,23 @@
 service: aws-lambda-nodejs-trivia
 frameworkVersion: '3'
+plugins:
+  - serverless-offline
 
 provider:
   name: aws
   runtime: nodejs18.x
 
 functions:
-  api:
-    handler: index.handler
+  getTrivia:
+    handler: index.handler.getTrivia
     events:
       - httpApi:
           path: /
           method: get
+  answerTrivia:
+    handler: index.handler.answerTrivia
+    events:
+      - httpApi:
+          path: /
+          method: post
+
